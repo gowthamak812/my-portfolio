@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { ReactTyped } from "react-typed";
-
+import bannerImg from '../images/banner.jpg';
 export default function Banner() {
     return (
         <Container id='home' className="p-0 w-100 h-100 banner-section position-relative" style={{ minHeight: "100vh" }}>
@@ -21,7 +21,7 @@ export default function Banner() {
                     <img
                         alt="Banner"
                         className="min-vh-100 w-100 h-100"
-                        src="/static/media/banner.16791bcedb713299b906.jpg"
+                        src={bannerImg}
                         style={{ objectFit: "cover" }}
                     />
                 </div>
