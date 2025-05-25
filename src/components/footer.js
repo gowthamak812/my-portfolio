@@ -1,9 +1,9 @@
 import { Button, Container, Image } from "react-bootstrap";
 
-function Freelancer() {
+function Footer() {
 
     return (
-        <Container id='contact' className="p-0 freelancer-section position-relative">
+        <Container id='footer' className="p-0 freelancer-section position-relative">
             {/* Image with dark overlay */}
             <div className="position-relative">
                 <Image
@@ -38,4 +38,4 @@ function Freelancer() {
     );
 }
 
-export default Freelancer;
+export default Footer;
