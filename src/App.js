@@ -4,7 +4,7 @@ import Banner from './components/banner';
 import About from './components/about';
 import Skills from './components/skills';
 import Services from './components/services';
-import Freelancer from './components/footer';
+import Footer from './components/footer';
 import Contact from './components/contact-us';
 
 
