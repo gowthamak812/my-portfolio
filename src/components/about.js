@@ -16,7 +16,7 @@ function About() {
                             <p>I'm deeply committed to building clean, efficient, and user-friendly interfaces, with a focus on performance, scalability, and modern development practices. I enjoy solving real-world problems through code and delivering impactful digital experiences.</p>
                             <p>In addition to my full-time role, I also share my knowledge as a part-time trainer, guiding aspiring developers in mastering web technologies. I’m constantly exploring new tools and trends in the frontend ecosystem to stay ahead and deliver top-tier solutions.</p>
                             <p>For a detailed overview of my professional experience and technical skills, feel free to view my resume.</p>
-                            <Button variant="dark" href='https://drive.google.com/drive/folders/15mpY1iqNRk-7FTT6HgZ4928go5nDcYUX' target='blank' className="mt-3">View My Resume</Button>
+                            <Button variant="dark" href='https://drive.google.com/file/d/1RNSpLlMCWRt_XQJ_OQawI8qNf4mGSm-l/view' target='blank' className="mt-3">View My Resume</Button>
                         </div>
                     </Col>
                 </Row>
