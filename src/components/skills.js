@@ -13,7 +13,7 @@ function Skills() {
         {language:"Node.js",  img:"nodejs.png"},
         {language:"Strapi.js",  img:"strapi.png"},
         {language:"Graph QL",  img:"graphql.png"},
-        {language:"Bootstrap 5",  img:"bootstrap.png"},
+        {language:"Bootstrap",  img:"bootstrap.png"},
         {language:"Scss",  img:"sass.png"},
         {language:"Tailwind",  img:"tailwind.png"},
         {language:"GitHub",  img:"github.png"},

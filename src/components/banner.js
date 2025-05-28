@@ -31,9 +31,9 @@ export default function Banner() {
             <div className="content-section position-absolute top-50 start-50 translate-middle text-center text-white z-2 w-100 px-3 m-0">
                 <h3>Welcome to my Portfolio!</h3>
                 <h1 className="lato-bolder">
-                    I'm {" "}
+                    {" "}
                     <ReactTyped
-                        strings={["Gowtham AK", "a React.js Developer"]}
+                        strings={["I'm Gowtham", "A React.js Developer"]}
                         typeSpeed={100}
                         loop
                         backSpeed={20}
