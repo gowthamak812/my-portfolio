@@ -5,9 +5,7 @@ import bannerImg from '../images/banner.jpg';
 export default function Banner() {
     return (
         <Container id='home' className="p-0 w-100 h-100 banner-section position-relative" style={{ minHeight: "100vh" }}>
-            {/* Image with dark overlay */}
             <div className="position-relative w-100 h-100">
-                {/* Dark overlay */}
                 <div
                     className="position-absolute top-0 start-0 w-100 h-100"
                     style={{
@@ -15,9 +13,7 @@ export default function Banner() {
                         zIndex: 1
                     }}
                 />
-                {/* Image */}
                 <div style={{ minHeight: "100vh", position: "relative" }}>
-                    {/* Image */}
                     <img
                         alt="Banner"
                         className="min-vh-100 w-100 h-100"
@@ -26,8 +22,6 @@ export default function Banner() {
                     />
                 </div>
             </div>
-
-            {/* Content section */}
             <div className="content-section position-absolute top-50 start-50 translate-middle text-center text-white z-2 w-100 px-3 m-0">
                 <h3>Welcome to my Portfolio!</h3>
                 <h1 className="lato-bolder">
