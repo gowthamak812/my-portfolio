@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Form, FormGroup, Row, Card } from "react-bootstrap";
+import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaBuilding } from "react-icons/fa";
 
 function Contact() {
@@ -46,29 +46,29 @@ function Contact() {
 
         setStatusMessage("Sending your message...");
         setStatusColor("info");
-        
-        const submittedData = {...formData};
-        
+
+        const submittedData = { ...formData };
+
         setFormData({ name: "", phone: "", email: "", message: "" });
         setErrors({});
 
         try {
-            const timeoutPromise = new Promise((_, reject) => 
+            const timeoutPromise = new Promise((_, reject) =>
                 setTimeout(() => reject(new Error("Request timeout")), 5000)
             );
-            
+
             const healthPromise = fetch('https://email-backend-9zg9.onrender.com/health');
-            
+
             const healthRes = await Promise.race([healthPromise, timeoutPromise]);
-            
+
             if (!healthRes.ok) {
                 setStatusMessage("Message received! We'll get back to you soon.");
                 setStatusColor("success");
-                
+
                 sendEmailInBackground(submittedData);
                 return;
             }
-            
+
             const response = await fetch("https://email-backend-9zg9.onrender.com/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -86,7 +86,7 @@ function Contact() {
         } catch (err) {
             setStatusMessage("Message received! We'll get back to you soon.");
             setStatusColor("success");
-            
+
             sendEmailInBackground(submittedData);
         }
     };
@@ -100,7 +100,7 @@ function Contact() {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data)
                     });
-                    
+
                     if (!response.ok && attempt < 3) {
                         attemptSend(attempt + 1);
                     }
@@ -111,163 +111,156 @@ function Contact() {
                 }
             }, attempt * 3000);
         };
-        
+
         attemptSend();
     };
 
     return (
-        <Container id="contact" fluid className="contact-section py-5">
+        <section id="contact" className="contact-section">
             <Container>
-                <Row className="justify-content-center mb-5">
-                    <Col md={8} className="text-center">
-                        <h6 className="text-uppercase text-dark fw-bold mb-3">Get In Touch</h6>
-                        <h2 className="display-5 fw-bold mb-4">Let's Work Together</h2>
-                        <p className="lead text-muted">
-                            Have a project in mind or looking for a developer? I'd love to hear from you.
-                        </p>
-                    </Col>
-                </Row>
-                
-                <Row className="g-4">
+                <div className="text-center mb-5">
+                    <span className="gradient-text fw-bold text-uppercase tracking-wider">Get In Touch</span>
+                    <h2 className="display-4 fw-bolder mt-2 mb-4">Let's Work Together</h2>
+                    <p className="lead text-muted mx-auto" style={{ maxWidth: "600px" }}>
+                        Have a project in mind, looking for a developer, or just want to say hi? I'd love to hear from you.
+                    </p>
+                </div>
+
+                <Row className="g-5">
                     <Col lg={5}>
-                        <Card className="border-0 shadow-sm h-100">
-                            <Card.Body className="p-4">
-                                <h3 className="mb-4 fw-bold">Contact Information</h3>
-                                <p className="text-muted mb-4">
-                                    For project inquiries or collaborations, feel free to fill out the form — I will get back to you shortly.
-                                </p>
-                                
-                                <div className="d-flex align-items-center mb-4">
-                                    <div className="bg-dark p-3 rounded-circle me-3">
-                                        <FaPhoneAlt size={20} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h6 className="fw-bold mb-1">Phone</h6>
-                                        <a href="tel:919344832658" className="text-decoration-none text-muted">+91 93448 32658</a>
-                                    </div>
+                        <div className="contact-card h-100">
+                            <h3 className="mb-4 inter-bold">Contact Information</h3>
+                            <p className="text-muted mb-5">
+                                For project inquiries or collaborations, feel free to fill out the form — I will get back to you shortly.
+                            </p>
+
+                            <div className="d-flex align-items-center mb-4">
+                                <div className="icon-gradient-container me-4">
+                                    <FaPhoneAlt size={16} />
                                 </div>
-                                
-                                <div className="d-flex align-items-center mb-4">
-                                    <div className="bg-dark p-3 rounded-circle me-3">
-                                        <FaEnvelope size={20} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h6 className="fw-bold mb-1">Email</h6>
-                                        <a href="mailto:gowthamak812@gmail.com" className="text-decoration-none text-muted">gowthamak812@gmail.com</a>
-                                    </div>
+                                <div>
+                                    <h6 className="inter-bold mb-1">Phone</h6>
+                                    <a href="tel:919344832658" className="text-decoration-none text-muted">+91 93448 32658</a>
                                 </div>
-                                
-                                <div className="d-flex align-items-center mb-4">
-                                    <div className="bg-dark p-3 rounded-circle me-3">
-                                        <FaMapMarkerAlt size={20} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h6 className="fw-bold mb-1">Location</h6>
-                                        <p className="text-muted mb-0">Tirupattur, India</p>
-                                    </div>
+                            </div>
+
+                            <div className="d-flex align-items-center mb-4">
+                                <div className="icon-gradient-container me-4">
+                                    <FaEnvelope size={16} />
                                 </div>
-                                
-                                <div className="d-flex align-items-center">
-                                    <div className="bg-dark p-3 rounded-circle me-3">
-                                        <FaBuilding size={20} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h6 className="fw-bold mb-1">Preferred Location</h6>
-                                        <p className="text-muted mb-0">Bangalore & Chennai</p>
-                                    </div>
+                                <div>
+                                    <h6 className="inter-bold mb-1">Email</h6>
+                                    <a href="mailto:gowthamak812@gmail.com" className="text-decoration-none text-muted">gowthamak812@gmail.com</a>
                                 </div>
-                            </Card.Body>
-                        </Card>
+                            </div>
+
+                            <div className="d-flex align-items-center mb-4">
+                                <div className="icon-gradient-container me-4">
+                                    <FaMapMarkerAlt size={16} />
+                                </div>
+                                <div>
+                                    <h6 className="inter-bold mb-1">Location</h6>
+                                    <p className="text-muted mb-0">Tirupattur, India</p>
+                                </div>
+                            </div>
+
+                            <div className="d-flex align-items-center">
+                                <div className="icon-gradient-container me-4">
+                                    <FaBuilding size={16} />
+                                </div>
+                                <div>
+                                    <h6 className="inter-bold mb-1">Preferred Location</h6>
+                                    <p className="text-muted mb-0">Bangalore (Immediate Relocation) & Chennai</p>
+                                </div>
+                            </div>
+                        </div>
                     </Col>
-                    
+
                     <Col lg={7}>
-                        <Card className="border-0 shadow-sm">
-                            <Card.Body className="p-4">
-                                <h3 className="mb-4 fw-bold">Send a Message</h3>
-                                <Form onSubmit={handleSubmit} noValidate>
-                                    <Row>
-                                        <Col md={6}>
-                                            <FormGroup className="mb-4">
-                                                <Form.Label>Full Name</Form.Label>
-                                                <Form.Control
-                                                    className="p-3 border-0 bg-light"
-                                                    type="text"
-                                                    name="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.name}
-                                                    placeholder="John Doe"
-                                                />
-                                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={6}>
-                                            <FormGroup className="mb-4">
-                                                <Form.Label>Phone Number</Form.Label>
-                                                <Form.Control
-                                                    className="p-3 border-0 bg-light"
-                                                    type="tel"
-                                                    name="phone"
-                                                    value={formData.phone}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.phone}
-                                                    placeholder="+91 98765 43210"
-                                                />
-                                                <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
-                                            </FormGroup>
-                                        </Col>
-                                    </Row>
-                                    
-                                    <FormGroup className="mb-4">
-                                        <Form.Label>Email Address</Form.Label>
-                                        <Form.Control
-                                            className="p-3 border-0 bg-light"
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            isInvalid={!!errors.email}
-                                            placeholder="example@domain.com"
-                                        />
-                                        <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                                    </FormGroup>
-                                    
-                                    <FormGroup className="mb-4">
-                                        <Form.Label>Your Message</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            name="message"
-                                            rows={5}
-                                            className="p-3 border-0 bg-light"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            isInvalid={!!errors.message}
-                                            placeholder="How can I help you?"
-                                        />
-                                        <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
-                                    </FormGroup>
-                                    
-                                    {statusMessage && (
-                                        <div className={`alert ${statusColor === "success" ? "alert-success" : statusColor === "info" ? "alert-info" : "alert-danger"} mb-4`}>
-                                            {statusMessage}
-                                        </div>
-                                    )}
-                                    
-                                    <Button 
-                                        type="submit" 
-                                        variant="dark" 
-                                        size="lg"
-                                        className="w-100 py-3 fw-bold"
-                                    >
-                                        Send Message
-                                    </Button>
-                                </Form>
-                            </Card.Body>
-                        </Card>
+                        <div className="contact-card h-100">
+                            <h3 className="mb-4 inter-bold">Send a Message</h3>
+                            <Form onSubmit={handleSubmit} noValidate>
+                                <Row>
+                                    <Col md={6}>
+                                        <FormGroup className="mb-4">
+                                            <Form.Label className="fw-semibold text-dark">Full Name</Form.Label>
+                                            <Form.Control
+                                                className="form-control"
+                                                type="text"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                isInvalid={!!errors.name}
+                                                placeholder="Enter your name"
+                                            />
+                                            <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup className="mb-4">
+                                            <Form.Label className="fw-semibold text-dark">Phone Number</Form.Label>
+                                            <Form.Control
+                                                className="form-control"
+                                                type="tel"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                isInvalid={!!errors.phone}
+                                                placeholder="Enter your mobile numder"
+                                            />
+                                            <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+
+                                <FormGroup className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Email Address</Form.Label>
+                                    <Form.Control
+                                        className="form-control"
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.email}
+                                        placeholder="Enter your email"
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                                </FormGroup>
+
+                                <FormGroup className="mb-4">
+                                    <Form.Label className="fw-semibold text-dark">Your Message</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        name="message"
+                                        rows={4}
+                                        className="form-control"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.message}
+                                        placeholder="Enter your message"
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                                </FormGroup>
+
+                                {statusMessage && (
+                                    <div className={`alert ${statusColor === "success" ? "alert-success" : statusColor === "info" ? "alert-info" : "alert-danger"} mb-4 border-0 shadow-sm rounded-3`}>
+                                        {statusMessage}
+                                    </div>
+                                )}
+
+                                <Button
+                                    type="submit"
+                                    variant="primary"
+                                    className="w-100 py-3 fw-bold rounded-3 shadow-sm"
+                                >
+                                    Send Message
+                                </Button>
+                            </Form>
+                        </div>
                     </Col>
                 </Row>
             </Container>
-        </Container>
+        </section>
     );
 }
 
