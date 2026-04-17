@@ -28,10 +28,39 @@ function Contact() {
 
     const validate = () => {
         const newErrors = {};
-        if (!formData.name.trim()) newErrors.name = "Name is required";
-        if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-        if (!formData.email.trim()) newErrors.email = "Email is required";
-        if (!formData.message.trim()) newErrors.message = "Message is required";
+        
+        // Name validation
+        if (!formData.name.trim()) {
+            newErrors.name = "Name is required";
+        } else if (formData.name.trim().length < 2) {
+            newErrors.name = "Name must be at least 2 characters";
+        }
+
+        // Phone validation (10 digits)
+        const phoneRegex = /^[0-9]{10}$/;
+        // Remove spaces and dashes for testing
+        const cleanPhone = formData.phone.trim().replace(/[\s-]/g, "");
+        if (!formData.phone.trim()) {
+            newErrors.phone = "Phone number is required";
+        } else if (!phoneRegex.test(cleanPhone)) {
+            newErrors.phone = "Please enter a valid 10-digit phone number";
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!formData.email.trim()) {
+            newErrors.email = "Email is required";
+        } else if (!emailRegex.test(formData.email.trim())) {
+            newErrors.email = "Please enter a valid email address";
+        }
+
+        // Message validation
+        if (!formData.message.trim()) {
+            newErrors.message = "Message is required";
+        } else if (formData.message.trim().length < 10) {
+            newErrors.message = "Message must be at least 10 characters";
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
