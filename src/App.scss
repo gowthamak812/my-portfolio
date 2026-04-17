@@ -6,13 +6,15 @@ $secondary: #475569;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 body,
-html {
+html,
+#root {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   font-weight: 400;
   background-color: #f8fafc;
   color: #1e293b;
   scroll-behavior: smooth;
+  width: 100%;
 }
 
 @keyframes float {
@@ -1594,7 +1596,7 @@ footer a:hover {
 .banner-section {
   min-height: auto !important;
   /* Allow it to be more compact */
-  padding-bottom: 80px !important;
+  padding-bottom: 60px !important;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
