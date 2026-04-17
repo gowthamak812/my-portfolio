@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaBuilding } from "react-icons/fa";
+import emailjs from '@emailjs/browser';
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -47,72 +48,32 @@ function Contact() {
         setStatusMessage("Sending your message...");
         setStatusColor("info");
 
-        const submittedData = { ...formData };
-
-        setFormData({ name: "", phone: "", email: "", message: "" });
-        setErrors({});
-
-        try {
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Request timeout")), 5000)
-            );
-
-            const healthPromise = fetch('https://email-backend-9zg9.onrender.com/health');
-
-            const healthRes = await Promise.race([healthPromise, timeoutPromise]);
-
-            if (!healthRes.ok) {
-                setStatusMessage("Message received! We'll get back to you soon.");
-                setStatusColor("success");
-
-                sendEmailInBackground(submittedData);
-                return;
-            }
-
-            const response = await fetch("https://email-backend-9zg9.onrender.com/send-email", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(submittedData)
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                setStatusMessage("Message sent successfully!");
-                setStatusColor("success");
-            } else {
-                setStatusMessage("Message received! We'll get back to you soon.");
-                setStatusColor("success");
-            }
-        } catch (err) {
-            setStatusMessage("Message received! We'll get back to you soon.");
-            setStatusColor("success");
-
-            sendEmailInBackground(submittedData);
-        }
-    };
-
-    const sendEmailInBackground = (data) => {
-        const attemptSend = (attempt = 1) => {
-            setTimeout(async () => {
-                try {
-                    const response = await fetch("https://email-backend-9zg9.onrender.com/send-email", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (!response.ok && attempt < 3) {
-                        attemptSend(attempt + 1);
-                    }
-                } catch (err) {
-                    if (attempt < 3) {
-                        attemptSend(attempt + 1);
-                    }
-                }
-            }, attempt * 3000);
+        // Template parameters based on your EmailJS template screenshot
+        const templateParams = {
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            message: formData.message,
+            title: "New Inquiry from Portfolio" // This fills the {{title}} in your subject line
         };
 
-        attemptSend();
+        try {
+            await emailjs.send(
+                process.env.REACT_APP_EMAILJS_SERVICE_ID,
+                process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+                templateParams,
+                process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+            );
+
+            setStatusMessage("Message sent successfully!");
+            setStatusColor("success");
+            setFormData({ name: "", phone: "", email: "", message: "" });
+            setErrors({});
+        } catch (err) {
+            console.error("EmailJS Error:", err);
+            setStatusMessage("Failed to send message. Please try again later.");
+            setStatusColor("danger");
+        }
     };
 
     return (
