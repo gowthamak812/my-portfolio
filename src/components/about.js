@@ -70,7 +70,7 @@ function About() {
                                     View Resume
                                 </Button>
                                 <Button
-                                    href="https://wa.me/919344832658"
+                                    href="https://wa.me/919344832658?text=Hi%20Gowtham,%20I%20came%20from%20your%20portfolio%20website.%20Let's%20speak%20about%20a%20website%20deal!"
                                     target="_blank"
                                     variant="outline-primary"
                                     className="px-2 py-2 d-flex align-items-center justify-content-center gap-1 flex-grow-1"
